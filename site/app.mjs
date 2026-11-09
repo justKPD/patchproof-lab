@@ -15,7 +15,9 @@ function show(){
  const guardMismatch=o.reason!==e.reason;
  $('candidate-stage').classList.toggle('bad',guardMismatch);$('output-stage').classList.toggle('bad',o.command!==e.command);
  $('difference').style.display=row.passed?'none':'block';
- $('difference').setAttribute('transform',guardMismatch?'translate(0 0)':'translate(360 10)');
+ $('difference').querySelector('path').setAttribute('d',guardMismatch?'M470 16V60':'M824 46V92');
+ $('difference').querySelector('text').setAttribute('x',guardMismatch?'490':'620');
+ $('difference').querySelector('text').setAttribute('y',guardMismatch?'36':'65');
  text('verdict',row.passed?'MATCH':'MISMATCH');$('verdict').classList.toggle('fail',!row.passed);
  $('scrub').value=state.index;
  text('inspection',row.passed?'This input agrees with the declared requirement. Other inputs may still fail.':guardMismatch?'Guard disagreement: the candidate and independent reference interpret this input differently.':'Command disagreement: the guard accepts, but the output violates the required clamp.');
