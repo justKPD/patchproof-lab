@@ -1,5 +1,5 @@
 import {validateTrace,instantiate,execute,labels,defaultTrace,canonical,hash,planRevalidation} from './engine.mjs';
-const $=id=>document.getElementById(id),state={build:null,evidence:null,req:null,run:null,index:0,timer:null,context:null},cache=new Map();
+const $=id=>document.getElementById(id),state={build:null,evidence:null,req:null,run:null,index:0,timer:null,context:null,runSeq:0,contextSeq:0},cache=new Map();
 function error(e){$('error').textContent=e.message??String(e);$('error').hidden=false;setTimeout(()=>$('error').hidden=true,8000);}
 async function loadModule(id){if(cache.has(id))return cache.get(id);const c=state.build.candidates.find(x=>x.id===id);if(!c)throw Error('Unknown compiled candidate');const bytes=await(await fetch(c.module)).arrayBuffer();const actual=[...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(x=>x.toString(16).padStart(2,'0')).join('');if(actual!==c.wasm_sha256)throw Error('Module hash does not match build record');const e=await instantiate(bytes);cache.set(id,e);return e;}
 function stop(){clearInterval(state.timer);state.timer=null;$('play').textContent='▶ Play trace';$('system').classList.remove('playing');}
@@ -23,13 +23,14 @@ function show(){
  text('selected-json',JSON.stringify(row,null,2));
 }
 async function run(custom=false){
+ const request=++state.runSeq;
  stop();$('error').hidden=true;$('system').style.opacity='1';
  const candidate=$('candidate').value, timeout=Number($('timeout').value),limit=Number($('limit').value);
  if(!Number.isInteger(timeout)||timeout<1||timeout>10000||!Number.isInteger(limit)||limit<0||limit>1000)throw Error('Timeout or limit is outside the declared integer bounds.');
  const rows=validateTrace(custom?JSON.parse($('trace').value):defaultTrace(timeout,limit));
  const e=await loadModule(candidate),start=performance.now(),observations=execute(e,rows),elapsed=performance.now()-start;
  const identity={candidate,wasm_sha256:state.build.candidates.find(c=>c.id===candidate).wasm_sha256,requirements:await hash(state.req),inputs:await hash(rows)};
- const id=await hash(identity);state.run={id,identity,mode:'executed-browser-wasm',created:new Date().toISOString(),elapsed_ms:elapsed,observations,scope:state.req.scope};
+ const id=await hash(identity);if(request!==state.runSeq)return;state.run={id,identity,mode:'executed-browser-wasm',created:new Date().toISOString(),elapsed_ms:elapsed,observations,scope:state.req.scope};
  state.index=Math.max(0,observations.findIndex(o=>!o.passed));$('scrub').max=rows.length-1;
  $('trace').value=JSON.stringify(rows,null,2);
  const failed=observations.filter(x=>!x.passed).length;
@@ -42,6 +43,7 @@ async function run(custom=false){
 const questionCandidates={expiry:'boundary-inclusive',future:'future-accepted',limit:'unclamped-request',sequence:'sequence-unchecked',disabled:'disable-ignored',clean:'manual-reference'};
 async function question(){stop();$('candidate').value=questionCandidates[$('question').value];await run();}
 async function revalidate(){
+ const request=++state.contextSeq;
  $('error').hidden=true;
  const change=$('change').value,rows=state.evidence.candidates.find(x=>x.id==='manual-reference').observations.map(x=>x.case);
  const moduleId=change==='module'?'future-accepted':'manual-reference';
@@ -49,11 +51,12 @@ async function revalidate(){
  const current={...saved};if(change==='timeout')current.timeout='timeout-60';if(change==='limit')current.limit='limit-40';if(change==='comment')current.raw_doc='comment-v2';if(change==='module')current.module=state.build.candidates.find(c=>c.id===moduleId).wasm_sha256;if(change==='missing')delete current.module;
  const plan=planRevalidation(rows,saved,current),missing=plan.some(t=>t.status==='MISSING');
  if(missing){state.context={status:'MISSING',saved,current,plan};text('context-result','MISSING: module identity is absent. No cached pass can be reused and execution is blocked until the binding is supplied.');$('dependency-map').replaceChildren();text('context-json',JSON.stringify(state.context,null,2));return;}
- const modified=rows.map(c=>({...c,...(change==='timeout'&&c.dependencies.includes('timeout')?{timeout:60}:{}),...(change==='limit'&&c.dependencies.includes('limit')?{limit:40}:{})}));
+ const modified=rows.map(c=>({...c,...(change==='timeout'&&c.dependencies.includes('timeout')?{timeout:60}:{}),...(change==='limit'&&c.dependencies.includes('limit')?{limit:40}:{}),...(change==='undeclared'&&c.id==='combined-027'?{timeout:1,valid:1,enabled:1,seq:2,stamp:990,requested:50}:{})}));
  const selected=new Set(plan.filter(t=>t.status!=='CURRENT').map(t=>t.id)),old=execute(await loadModule('manual-reference'),rows);
  const scoped=selected.size?execute(await loadModule(moduleId),modified.filter(c=>selected.has(c.id))):[],full=execute(await loadModule(moduleId),modified);
  const merged=new Map(old.map(o=>[o.case.id,o]));scoped.forEach(o=>merged.set(o.case.id,o));
  const agrees=full.every(o=>canonical(o)===canonical(merged.get(o.case.id))),failures=full.filter(o=>!o.passed).length;
+ if(request!==state.contextSeq)return;
  state.context={status:agrees?'RECONCILED':'DIVERGED',change,saved,current,planned:plan.map(t=>({id:t.id,status:t.status,dependencies:t.dependencies})),selected:scoped,full_check:full,equal_to_full:agrees,calls:scoped.length,full_calls:full.length,fixture_limit:'Declared dependencies; verification also executes the full suite here as an additional audit cost.'};
  $('context-result').innerHTML='<div class="metrics"><div><small>Scoped rerun calls</small><strong>'+scoped.length+'</strong></div><div><small>Full / file-hash rerun</small><strong>'+full.length+'</strong></div><div><small>Same recorded results?</small><strong>'+(agrees?'Yes':'No')+'</strong></div><div><small>Current contract failures</small><strong>'+failures+'</strong></div></div>';
  $('dependency-map').replaceChildren(...['module','timeout','limit'].map(k=>{let s=document.createElement('span');s.className=current[k]!==saved[k]?'stale':'';s.textContent=k+': '+(current[k]!==saved[k]?'changed, revalidated':'retained');return s;}));
@@ -69,8 +72,9 @@ async function chat(q){
  text('chat-answer',answer);
 }
 function guarded(fn){return (...args)=>Promise.resolve().then(()=>fn(...args)).catch(error);}
-$('run').onclick=guarded(()=>run());$('run-custom').onclick=guarded(()=>run(true));$('question').onchange=guarded(question);$('candidate').onchange=()=>{stop();text('run-status','Candidate changed. Execute to produce a new run.');state.run=null;text('verdict','NOT RUN');$('system').style.opacity='.45';};
-for(const id of ['timeout','limit'])$(id).addEventListener('input',()=>{stop();state.run=null;text('run-status','Input changed. Execute to produce a new run.');text('verdict','NOT RUN');$('system').style.opacity='.45';});
+$('run').onclick=guarded(()=>run());$('run-custom').onclick=guarded(()=>run(true));$('question').onchange=guarded(question);$('candidate').onchange=()=>{stop();++state.runSeq;text('run-status','Candidate changed. Execute to produce a new run.');state.run=null;text('verdict','NOT RUN');$('system').style.opacity='.45';};
+for(const id of ['timeout','limit'])$(id).addEventListener('input',()=>{stop();++state.runSeq;state.run=null;text('run-status','Input changed. Execute to produce a new run.');text('verdict','NOT RUN');$('system').style.opacity='.45';});
+$('change').onchange=()=>{++state.contextSeq;state.context=null;text('context-result','Context changed. Execute revalidation for this selection.');text('context-json','');$('dependency-map').replaceChildren();};
 $('run').addEventListener('click',()=>$('system').style.opacity='1');$('question').addEventListener('change',()=>$('system').style.opacity='1');
 $('scrub').oninput=()=>{if(state.run){stop();state.index=Number($('scrub').value);show();}};
 $('next').onclick=()=>{if(state.run){stop();state.index=(state.index+1)%state.run.observations.length;show();}};
