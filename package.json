@@ -1,0 +1,10 @@
+{
+  "name": "patchproof-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/test_engine.mjs",
+    "test:browser": "node browser_check.cjs"
+  }
+}

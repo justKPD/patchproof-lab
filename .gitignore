@@ -1,0 +1,11 @@
+.venv/
+.compiler/
+__pycache__/
+.env*
+*.exe
+*.dll
+*.obj
+.vercel/
+results/*.png
+results/local_*.json
+

@@ -1,0 +1,23 @@
+name: Engineering checks
+on: [push, workflow_dispatch]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install --target .compiler ziglang==0.14.1
+      - run: python tools/build.py
+        env:
+          ZIG_EXE: ${{ github.workspace }}/.compiler/ziglang/zig
+          CLANG_TIDY: /usr/bin/clang-tidy
+      - run: python tools/package_evidence.py
+      - run: python tools/evaluate.py
+      - run: node --test tests/test_engine.mjs
+      - run: python -m unittest discover -s tests
+

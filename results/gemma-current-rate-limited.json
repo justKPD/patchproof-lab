@@ -1,0 +1,79 @@
+{
+  "status": "FAILED",
+  "id": "agent-current",
+  "context": {
+    "id": "req-v1",
+    "requirements": [
+      "Invalid input produces zero command.",
+      "Disabled control produces zero command.",
+      "A timestamp in the future is rejected.",
+      "Accept only age < timeout_ms. Equality is expired.",
+      "Sequence must be strictly greater than the last accepted sequence.",
+      "An accepted request is clamped to the inclusive interval [0, limit]."
+    ],
+    "parameters": [
+      "now",
+      "stamp",
+      "seq",
+      "last",
+      "valid",
+      "enabled",
+      "requested",
+      "limit",
+      "timeout"
+    ],
+    "reason_bits": {
+      "invalid": 1,
+      "disabled": 2,
+      "future": 4,
+      "expired": 8,
+      "sequence": 16
+    },
+    "integer_bounds": {
+      "now": [
+        0,
+        1000000
+      ],
+      "stamp": [
+        0,
+        1000000
+      ],
+      "seq": [
+        0,
+        1000000
+      ],
+      "last": [
+        -1,
+        1000000
+      ],
+      "valid": [
+        0,
+        1
+      ],
+      "enabled": [
+        0,
+        1
+      ],
+      "requested": [
+        -1000,
+        1000
+      ],
+      "limit": [
+        0,
+        1000
+      ],
+      "timeout": [
+        1,
+        10000
+      ]
+    }
+  },
+  "attempts": [
+    {
+      "attempt": 0,
+      "error": "HTTPError",
+      "message": "HTTP Error 429: Too Many Requests",
+      "provider_seconds": 0.7836552000007941
+    }
+  ]
+}

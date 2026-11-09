@@ -1,0 +1,44 @@
+{
+  "schema": 1,
+  "documents": [
+    {
+      "id": "architecture-v1",
+      "revision": "arch-v1",
+      "authority": "current",
+      "text": "The portable integer controller checks sensor validity, enable state, sample age and sequence before clamping a request. The public module ABI is reason and command. There is no physical actuator connection.",
+      "dependencies": [
+        "module"
+      ]
+    },
+    {
+      "id": "freshness-v1",
+      "revision": "req-v1",
+      "authority": "current",
+      "text": "Sensor sample freshness timeout requires age strictly less than timeout_ms. Equality is expired; timestamps later than now are rejected.",
+      "dependencies": [
+        "module",
+        "timeout"
+      ]
+    },
+    {
+      "id": "limits-v1",
+      "revision": "req-v1",
+      "authority": "current",
+      "text": "An accepted request is clamped to the inclusive interval zero to limit. Disabled or invalid control produces zero. Sequence must be strictly greater than last accepted sequence.",
+      "dependencies": [
+        "module",
+        "limit"
+      ]
+    },
+    {
+      "id": "freshness-v0",
+      "revision": "obsolete-v0",
+      "authority": "obsolete",
+      "text": "Sensor sample freshness timeout allows age less than or equal to timeout_ms. Equality is accepted.",
+      "dependencies": [
+        "module",
+        "timeout"
+      ]
+    }
+  ]
+}

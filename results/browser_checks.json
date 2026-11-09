@@ -1,0 +1,17 @@
+{
+  "base": "local",
+  "five_failure_modes": true,
+  "reference_matches": true,
+  "compiled_wasm_execution": true,
+  "arrows": true,
+  "pause": true,
+  "stale_input_invalidated": true,
+  "context_reruns": true,
+  "missing_context_blocked": true,
+  "chat_tools": true,
+  "custom_trace": true,
+  "current_export": true,
+  "invalid_input_rejected": true,
+  "mobile_no_overflow": true,
+  "js_errors": []
+}

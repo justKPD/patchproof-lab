@@ -1,0 +1,34 @@
+{
+  "status": "AWAITING_HUMAN_REVIEW",
+  "stages": [
+    {
+      "tool": "compile_and_static_analysis",
+      "returncode": 0,
+      "seconds": 1.603167500001291,
+      "stdout": "{\"compiled\": 7, \"static_returncode\": 0}\n",
+      "stderr": ""
+    },
+    {
+      "tool": "package_provenance",
+      "returncode": 0,
+      "seconds": 0.11004520000278717,
+      "stdout": "{\"published_candidates\": 7}\n",
+      "stderr": ""
+    },
+    {
+      "tool": "independent_referee",
+      "returncode": 0,
+      "seconds": 3.1352328000029956,
+      "stdout": "[{\"id\": \"manual-reference\", \"own\": true, \"failed\": 0}, {\"id\": \"boundary-inclusive\", \"own\": true, \"failed\": 1}, {\"id\": \"future-accepted\", \"own\": true, \"failed\": 26}, {\"id\": \"unclamped-request\", \"own\": true, \"failed\": 9}, {\"id\": \"sequence-unchecked\", \"own\": true, \"failed\": 73}, {\"id\": \"disable-ignored\", \"own\": true, \"failed\": 78}, {\"id\": \"limit-off-by-one\", \"own\": true, \"failed\": 9}]\n",
+      "stderr": ""
+    },
+    {
+      "tool": "regressions",
+      "returncode": 0,
+      "seconds": 0.22980610000013257,
+      "stdout": "\u00e2\u0153\u201d compiled C++ matches JS oracle over live mixed sequence (2.4499ms)\n\u00e2\u0153\u201d reject invalid now (0.4244ms)\n\u00e2\u0153\u201d reject invalid stamp (0.2279ms)\n\u00e2\u0153\u201d reject invalid seq (0.1696ms)\n\u00e2\u0153\u201d reject invalid last (0.1625ms)\n\u00e2\u0153\u201d reject invalid valid (0.1338ms)\n\u00e2\u0153\u201d reject invalid enabled (0.1183ms)\n\u00e2\u0153\u201d reject invalid requested (0.2339ms)\n\u00e2\u0153\u201d reject invalid limit (0.1607ms)\n\u00e2\u0153\u201d reject invalid timeout (0.2665ms)\n\u00e2\u0153\u201d reject strings and overflow (0.4864ms)\n\u00e2\u0153\u201d reject empty and duplicate identities (0.3066ms)\n\u00e2\u0153\u201d equality expires (0.0999ms)\n\u00e2\u0153\u201d future rejection (0.1167ms)\n\u00e2\u0153\u201d duplicate sequence rejected (0.063ms)\n\u00e2\u0153\u201d clamps both ends (0.1432ms)\n\u00e2\u0153\u201d no missing contract defaults (0.2131ms)\n\u00e2\u0153\u201d missing transitive binding blocks reuse (0.1316ms)\n\u00e2\u0153\u201d changed binding invalidates (0.0709ms)\n\u00e2\u0153\u201d unrelated binding retains (0.1078ms)\n\u00e2\u0153\u201d selective rerun handles missing (0.2771ms)\n\u00e2\u0153\u201d canonical object order stable (0.2333ms)\n\u00e2\u0153\u201d compiled boundary-inclusive detected (9.4514ms)\n\u00e2\u0153\u201d compiled future-accepted detected (1.981ms)\n\u00e2\u0153\u201d compiled unclamped-request detected (1.2469ms)\n\u00e2\u0153\u201d compiled sequence-unchecked detected (0.9734ms)\n\u00e2\u0153\u201d compiled disable-ignored detected (0.8827ms)\n\u00e2\u0153\u201d compiled limit-off-by-one detected (1.0185ms)\n\u00e2\u0153\u201d missing exports fail closed (0.5876ms)\n\u00e2\u201e\u00b9 tests 29\n\u00e2\u201e\u00b9 suites 0\n\u00e2\u201e\u00b9 pass 29\n\u00e2\u201e\u00b9 fail 0\n\u00e2\u201e\u00b9 cancelled 0\n\u00e2\u201e\u00b9 skipped 0\n\u00e2\u201e\u00b9 todo 0\n\u00e2\u201e\u00b9 duration_ms 144.2576\n",
+      "stderr": ""
+    }
+  ],
+  "authority": "Human review required; no production change is approved."
+}

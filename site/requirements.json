@@ -1,0 +1,74 @@
+{
+  "version": "req-v1",
+  "target": "portable-wasm32",
+  "requirements": [
+    {
+      "id": "R-VALID",
+      "text": "Invalid input produces zero command.",
+      "bit": 1
+    },
+    {
+      "id": "R-ENABLE",
+      "text": "Disabled control produces zero command.",
+      "bit": 2
+    },
+    {
+      "id": "R-FUTURE",
+      "text": "A timestamp in the future is rejected.",
+      "bit": 4
+    },
+    {
+      "id": "R-FRESH",
+      "text": "Accept only age < timeout_ms. Equality is expired.",
+      "bit": 8
+    },
+    {
+      "id": "R-ORDER",
+      "text": "Sequence must be strictly greater than the last accepted sequence.",
+      "bit": 16
+    },
+    {
+      "id": "R-LIMIT",
+      "text": "An accepted request is clamped to the inclusive interval [0, limit]."
+    }
+  ],
+  "bounds": {
+    "now": [
+      0,
+      1000000
+    ],
+    "stamp": [
+      0,
+      1000000
+    ],
+    "seq": [
+      0,
+      1000000
+    ],
+    "last": [
+      -1,
+      1000000
+    ],
+    "valid": [
+      0,
+      1
+    ],
+    "enabled": [
+      0,
+      1
+    ],
+    "requested": [
+      -1000,
+      1000
+    ],
+    "limit": [
+      0,
+      1000
+    ],
+    "timeout": [
+      1,
+      10000
+    ]
+  },
+  "scope": "Integer reference module with authored requirements. No physical controller, QNX execution or safety certification."
+}
