@@ -9,3 +9,5 @@ __pycache__/
 results/*.png
 results/local_*.json
 
+
+.vercel

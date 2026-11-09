@@ -1,5 +1,5 @@
 {
-  "base": "local",
+  "base": "https://patchproof-lab.vercel.app/",
   "five_failure_modes": true,
   "reference_matches": true,
   "compiled_wasm_execution": true,
