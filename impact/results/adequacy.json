@@ -1,0 +1,727 @@
+{
+  "schema": 1,
+  "source_sha256": "7859408bbeb4da30750ad050bf45e96a3c0cf416ffd8beac2773c656416e822e",
+  "budget_calls": 200,
+  "seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "bva_size": 53,
+  "compiled_pipeline_mutants": 51,
+  "probable_equivalent": [
+    "config-L4-C29-CRP-069",
+    "config-L4-C29-CRP-070",
+    "sensor-L10-C13-CRP-013",
+    "sensor-L10-C13-CRP-014",
+    "sensor-L13-C13-CRP-019",
+    "sensor-L13-C13-CRP-020",
+    "sensor-L16-C13-CRP-025",
+    "sensor-L16-C13-CRP-026",
+    "sensor-L19-C13-CRP-031",
+    "sensor-L19-C13-CRP-032",
+    "sensor-L7-C13-CRP-006",
+    "units-L10-C8-ROR-066",
+    "units-L7-C8-ROR-064"
+  ],
+  "live_mutants": 38,
+  "strategies": [
+    {
+      "strategy": "nominal_4",
+      "oracle": "reference",
+      "budget_calls": 4,
+      "seeds": 1,
+      "killed_mean": 18,
+      "killed_sd": 0.0,
+      "live_mutants": 38,
+      "mutation_score_mean": 0.47368421052631576
+    },
+    {
+      "strategy": "random_uniform",
+      "oracle": "reference",
+      "budget_calls": 53,
+      "seeds": 5,
+      "killed_mean": 14.4,
+      "killed_sd": 3.6110940170535577,
+      "live_mutants": 38,
+      "mutation_score_mean": 0.37894736842105264
+    },
+    {
+      "strategy": "random_uniform",
+      "oracle": "reference",
+      "budget_calls": 200,
+      "seeds": 5,
+      "killed_mean": 18.6,
+      "killed_sd": 5.571355310873647,
+      "live_mutants": 38,
+      "mutation_score_mean": 0.48947368421052634
+    },
+    {
+      "strategy": "random_operating_region",
+      "oracle": "reference",
+      "budget_calls": 53,
+      "seeds": 5,
+      "killed_mean": 29.6,
+      "killed_sd": 0.8,
+      "live_mutants": 38,
+      "mutation_score_mean": 0.7789473684210527
+    },
+    {
+      "strategy": "random_operating_region",
+      "oracle": "reference",
+      "budget_calls": 200,
+      "seeds": 5,
+      "killed_mean": 31.8,
+      "killed_sd": 0.9797958971132712,
+      "live_mutants": 38,
+      "mutation_score_mean": 0.8368421052631579
+    },
+    {
+      "strategy": "boundary_value_analysis",
+      "oracle": "reference",
+      "budget_calls": 53,
+      "seeds": 1,
+      "killed_mean": 38,
+      "killed_sd": 0.0,
+      "live_mutants": 38,
+      "mutation_score_mean": 1.0
+    },
+    {
+      "strategy": "bva_plus_operating_region_random",
+      "oracle": "reference",
+      "budget_calls": 200,
+      "seeds": 5,
+      "killed_mean": 38,
+      "killed_sd": 0.0,
+      "live_mutants": 38,
+      "mutation_score_mean": 1.0
+    },
+    {
+      "strategy": "property_based_hypothesis_uniform",
+      "oracle": "none (properties + metamorphic relations)",
+      "budget_calls": 200,
+      "mean_calls_used_per_mutant": 35.205263157894734,
+      "seeds": 5,
+      "killed_mean": 16,
+      "killed_sd": 7.874007874011811,
+      "live_mutants": 38,
+      "mutation_score_mean": 0.42105263157894735
+    },
+    {
+      "strategy": "property_based_hypothesis_structured",
+      "oracle": "none (properties + metamorphic relations)",
+      "budget_calls": 200,
+      "mean_calls_used_per_mutant": 29.436842105263157,
+      "seeds": 5,
+      "killed_mean": 25.6,
+      "killed_sd": 3.3823069050575527,
+      "live_mutants": 38,
+      "mutation_score_mean": 0.6736842105263158
+    },
+    {
+      "strategy": "properties_on_uniform_random",
+      "oracle": "none (properties + metamorphic relations)",
+      "budget_calls": 200,
+      "mean_calls_used_per_mutant": 35.873684210526314,
+      "seeds": 5,
+      "killed_mean": 14.4,
+      "killed_sd": 3.6110940170535577,
+      "live_mutants": 38,
+      "mutation_score_mean": 0.37894736842105264
+    }
+  ],
+  "kill_matrix_seed0": [
+    {
+      "id": "sensor-L5-C14-CRP-000",
+      "file": "sensor.cpp",
+      "change": "int flags = 0;  ->  int flags = 1;",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "sensor-L6-NEG-001",
+      "file": "sensor.cpp",
+      "change": "if (valid == 0) {  ->  if (!(valid == 0)) {",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L6-C12-ROR-002",
+      "file": "sensor.cpp",
+      "change": "if (valid == 0) {  ->  if (valid != 0) {",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L6-C15-CRP-003",
+      "file": "sensor.cpp",
+      "change": "if (valid == 0) {  ->  if (valid == 1) {",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L7-SDL-004",
+      "file": "sensor.cpp",
+      "change": "flags |= 1;  ->  ;",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L7-C10-BOR-005",
+      "file": "sensor.cpp",
+      "change": "flags |= 1;  ->  flags &= 1;",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L7-C13-CRP-007",
+      "file": "sensor.cpp",
+      "change": "flags |= 1;  ->  flags |= 0;",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L9-NEG-008",
+      "file": "sensor.cpp",
+      "change": "if (enabled == 0) {  ->  if (!(enabled == 0)) {",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L9-C14-ROR-009",
+      "file": "sensor.cpp",
+      "change": "if (enabled == 0) {  ->  if (enabled != 0) {",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L9-C17-CRP-010",
+      "file": "sensor.cpp",
+      "change": "if (enabled == 0) {  ->  if (enabled == 1) {",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L10-SDL-011",
+      "file": "sensor.cpp",
+      "change": "flags |= 2;  ->  ;",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L10-C10-BOR-012",
+      "file": "sensor.cpp",
+      "change": "flags |= 2;  ->  flags &= 2;",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L12-NEG-015",
+      "file": "sensor.cpp",
+      "change": "if (stamp > now) {  ->  if (!(stamp > now)) {",
+      "nominal_4": true,
+      "random_uniform": true,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "sensor-L12-C12-ROR-016",
+      "file": "sensor.cpp",
+      "change": "if (stamp > now) {  ->  if (stamp >= now) {",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": false,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "sensor-L13-SDL-017",
+      "file": "sensor.cpp",
+      "change": "flags |= 4;  ->  ;",
+      "nominal_4": false,
+      "random_uniform": true,
+      "random_operating_region": false,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "sensor-L13-C10-BOR-018",
+      "file": "sensor.cpp",
+      "change": "flags |= 4;  ->  flags &= 4;",
+      "nominal_4": false,
+      "random_uniform": true,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "sensor-L15-NEG-021",
+      "file": "sensor.cpp",
+      "change": "if (age_ms(now, stamp) >= timeout) {  ->  if (!(age_ms(now, stamp) >= timeout)) {",
+      "nominal_4": true,
+      "random_uniform": true,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "sensor-L15-C25-ROR-022",
+      "file": "sensor.cpp",
+      "change": "if (age_ms(now, stamp) >= timeout) {  ->  if (age_ms(now, stamp) > timeout) {",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": false,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "sensor-L16-SDL-023",
+      "file": "sensor.cpp",
+      "change": "flags |= 8;  ->  ;",
+      "nominal_4": false,
+      "random_uniform": true,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "sensor-L16-C10-BOR-024",
+      "file": "sensor.cpp",
+      "change": "flags |= 8;  ->  flags &= 8;",
+      "nominal_4": false,
+      "random_uniform": true,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L18-NEG-027",
+      "file": "sensor.cpp",
+      "change": "if (seq <= last) {  ->  if (!(seq <= last)) {",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L18-C10-ROR-028",
+      "file": "sensor.cpp",
+      "change": "if (seq <= last) {  ->  if (seq < last) {",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "sensor-L19-SDL-029",
+      "file": "sensor.cpp",
+      "change": "flags |= 16;  ->  ;",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "sensor-L19-C10-BOR-030",
+      "file": "sensor.cpp",
+      "change": "flags |= 16;  ->  flags &= 16;",
+      "nominal_4": false,
+      "random_uniform": true,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "limiter-L4-C30-CRP-033",
+      "file": "limiter.cpp",
+      "change": "return clamp_int(requested, 0, limit);  ->  return clamp_int(requested, 1, limit);",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "rate-L5-C22-ROR-034",
+      "file": "rate.cpp",
+      "change": "int step = max_step > 0 ? max_step : kDefaultMaxStep;  ->  int step = max_step >= 0 ? max_step : kDefaultMaxStep;",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": false,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "rate-L5-C24-CRP-035",
+      "file": "rate.cpp",
+      "change": "int step = max_step > 0 ? max_step : kDefaultMaxStep;  ->  int step = max_step > 1 ? max_step : kDefaultMaxStep;",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": false,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "rate-L6-C31-AOR-036",
+      "file": "rate.cpp",
+      "change": "int delta = clamp_int(target - prev, -step, step);  ->  int delta = clamp_int(target + prev, -step, step);",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "rate-L7-C14-AOR-037",
+      "file": "rate.cpp",
+      "change": "return prev + delta;  ->  return prev - delta;",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "pipeline-L8-NEG-038",
+      "file": "pipeline.cpp",
+      "change": "if (validate_sample(now, stamp, seq, last, valid, enabled, timeout) != 0) {  ->  if (!(validate_sample(now, stamp, seq, last, valid, enabled, timeout) != 0)) {",
+      "nominal_4": true,
+      "random_uniform": true,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "pipeline-L8-C70-ROR-039",
+      "file": "pipeline.cpp",
+      "change": "if (validate_sample(now, stamp, seq, last, valid, enabled, timeout) != 0) {  ->  if (validate_sample(now, stamp, seq, last, valid, enabled, timeout) == 0) {",
+      "nominal_4": true,
+      "random_uniform": true,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "pipeline-L8-C73-CRP-040",
+      "file": "pipeline.cpp",
+      "change": "if (validate_sample(now, stamp, seq, last, valid, enabled, timeout) != 0) {  ->  if (validate_sample(now, stamp, seq, last, valid, enabled, timeout) != 1) {",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "pipeline-L9-C11-CRP-041",
+      "file": "pipeline.cpp",
+      "change": "return 0;  ->  return 1;",
+      "nominal_4": false,
+      "random_uniform": true,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "units-L4-C13-AOR-062",
+      "file": "units.h",
+      "change": "return now - stamp;  ->  return now + stamp;",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "units-L7-NEG-063",
+      "file": "units.h",
+      "change": "if (v < lo) {  ->  if (!(v < lo)) {",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "units-L10-NEG-065",
+      "file": "units.h",
+      "change": "if (v > hi) {  ->  if (!(v > hi)) {",
+      "nominal_4": true,
+      "random_uniform": false,
+      "random_operating_region": true,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": true,
+      "property_based_hypothesis_structured": true
+    },
+    {
+      "id": "config-L3-C32-CRP-067",
+      "file": "config.h",
+      "change": "constexpr int kDefaultMaxStep = 25;  ->  constexpr int kDefaultMaxStep = 26;",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": false,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": false
+    },
+    {
+      "id": "config-L3-C32-CRP-068",
+      "file": "config.h",
+      "change": "constexpr int kDefaultMaxStep = 25;  ->  constexpr int kDefaultMaxStep = 24;",
+      "nominal_4": false,
+      "random_uniform": false,
+      "random_operating_region": false,
+      "boundary_value_analysis": true,
+      "property_based_hypothesis_uniform": false,
+      "property_based_hypothesis_structured": false
+    }
+  ],
+  "suite_survivor_suggestions": [
+    {
+      "change": "sensor-L10-C13-CRP-013",
+      "status": "killable at unit level only (not observable through pipeline_step)",
+      "edit": "flags |= 2;  ->  flags |= 3;",
+      "suggested_unit_test": {
+        "abi": "validate_sample",
+        "input": {
+          "now": 1000,
+          "stamp": 990,
+          "seq": 2,
+          "last": 1,
+          "valid": 1,
+          "enabled": 0,
+          "timeout": 100
+        },
+        "expected_reason_code": 2,
+        "observed_reason_code": 3
+      }
+    },
+    {
+      "change": "sensor-L12-C12-ROR-016",
+      "edit": "if (stamp > now) {  ->  if (stamp >= now) {",
+      "status": "killable",
+      "found_by": "boundary_value_analysis",
+      "suggested_test_input": {
+        "now": 1000,
+        "stamp": 1000,
+        "seq": 2,
+        "last": 1,
+        "valid": 1,
+        "enabled": 1,
+        "requested": 50,
+        "limit": 80,
+        "timeout": 100,
+        "prev": 40,
+        "max_step": 25
+      },
+      "expected_by_requirements": 50,
+      "observed_on_changed_code": 0
+    },
+    {
+      "change": "sensor-L13-C13-CRP-019",
+      "status": "killable at unit level only (not observable through pipeline_step)",
+      "edit": "flags |= 4;  ->  flags |= 5;",
+      "suggested_unit_test": {
+        "abi": "validate_sample",
+        "input": {
+          "now": 1000,
+          "stamp": 1001,
+          "seq": 2,
+          "last": 1,
+          "valid": 1,
+          "enabled": 1,
+          "timeout": 100
+        },
+        "expected_reason_code": 4,
+        "observed_reason_code": 5
+      }
+    },
+    {
+      "change": "sensor-L16-C13-CRP-025",
+      "status": "killable at unit level only (not observable through pipeline_step)",
+      "edit": "flags |= 8;  ->  flags |= 9;",
+      "suggested_unit_test": {
+        "abi": "validate_sample",
+        "input": {
+          "now": 1000,
+          "stamp": 899,
+          "seq": 2,
+          "last": 1,
+          "valid": 1,
+          "enabled": 1,
+          "timeout": 100
+        },
+        "expected_reason_code": 8,
+        "observed_reason_code": 9
+      }
+    },
+    {
+      "change": "sensor-L19-C13-CRP-031",
+      "status": "killable at unit level only (not observable through pipeline_step)",
+      "edit": "flags |= 16;  ->  flags |= 17;",
+      "suggested_unit_test": {
+        "abi": "validate_sample",
+        "input": {
+          "now": 1000,
+          "stamp": 990,
+          "seq": 0,
+          "last": 1,
+          "valid": 1,
+          "enabled": 1,
+          "timeout": 100
+        },
+        "expected_reason_code": 16,
+        "observed_reason_code": 17
+      }
+    },
+    {
+      "change": "rate-L5-C24-CRP-035",
+      "edit": "int step = max_step > 0 ? max_step : kDefaultMaxStep;  ->  int step = max_step > 1 ? max_step : kDefaultMaxStep;",
+      "status": "killable",
+      "found_by": "boundary_value_analysis",
+      "suggested_test_input": {
+        "now": 1000,
+        "stamp": 990,
+        "seq": 2,
+        "last": 1,
+        "valid": 1,
+        "enabled": 1,
+        "requested": 100,
+        "limit": 80,
+        "timeout": 100,
+        "prev": 0,
+        "max_step": 1
+      },
+      "expected_by_requirements": 1,
+      "observed_on_changed_code": 25
+    },
+    {
+      "change": "telemetry-L9-C11-ROR-046",
+      "status": "killable at unit level only (not observable through pipeline_step)",
+      "edit": "return a < 0 ? -1 : a;  ->  return a <= 0 ? -1 : a;",
+      "suggested_unit_test": {
+        "abi": "telemetry_dispatch",
+        "input": {
+          "kind": 1,
+          "a": 1000,
+          "b": 1000
+        },
+        "expected": 0,
+        "observed": -1
+      }
+    },
+    {
+      "change": "telemetry-L9-C13-CRP-047",
+      "status": "killable at unit level only (not observable through pipeline_step)",
+      "edit": "return a < 0 ? -1 : a;  ->  return a < 1 ? -1 : a;",
+      "suggested_unit_test": {
+        "abi": "telemetry_dispatch",
+        "input": {
+          "kind": 1,
+          "a": 1000,
+          "b": 1000
+        },
+        "expected": 0,
+        "observed": -1
+      }
+    },
+    {
+      "change": "telemetry-L12-C31-CRP-050",
+      "status": "probably equivalent at unit level too (boundary probes found no difference)",
+      "edit": "static const encoder kEncoders[2] = {encode_status, encode_age};  ->  static const encoder kEncoders[3] = {encode_status, encode_age};"
+    },
+    {
+      "change": "units-L7-C8-ROR-064",
+      "status": "probably equivalent (no input found in 50k+ calls)",
+      "edit": "if (v < lo) {  ->  if (v <= lo) {"
+    },
+    {
+      "change": "units-L10-C8-ROR-066",
+      "status": "probably equivalent (no input found in 50k+ calls)",
+      "edit": "if (v > hi) {  ->  if (v >= hi) {"
+    }
+  ],
+  "seconds": 17.502160098999866,
+  "limits": [
+    "Equivalence is estimated by search, not proven.",
+    "The Python oracle restates the same written requirements; a requirement error is shared.",
+    "Mutants are single-token changes; real faults can be multi-location.",
+    "Property checks embed requirement knowledge (they are partial oracles)."
+  ]
+}

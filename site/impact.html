@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PatchProof Lab · Change impact &amp; assistant evaluation</title>
+<link rel="stylesheet" href="impact.css"><script type="module" src="impact.mjs"></script></head>
+<body><main>
+<header>
+  <p class="eyebrow">PATCHPROOF LAB · PART 2 · INDEPENDENT WORK SAMPLE</p>
+  <h1>When the expected tests pass, what else has to run?</h1>
+  <p class="lead">Three measured experiments on a small multi-component C++ system: discovering which tests a change can break
+  (including downstream components), choosing extra inputs beyond expected scenarios, and evaluating an AI assistant
+  whose evaluation is itself checked against known-faulty assistants. Every number below is produced by
+  <code>python impact/run_all.py</code>.</p>
+  <p class="small"><a href="index.html">← Part 1: patch verification workspace</a> · <a href="https://github.com/justKPD/patchproof-lab/tree/dev/impact-lab/impact">Source</a> · <a href="impact-data.json">Raw results</a></p>
+</header>
+
+<section id="explorer">
+  <p class="eyebrow">01 / CHANGE EXPLORER</p>
+  <h2>Pick a change. See which tests each technique would rerun.</h2>
+  <p class="muted" id="rts-scope"></p>
+  <div class="grid2">
+    <div class="card">
+      <label for="change">Generated change (compiled, full suite executed)</label>
+      <select id="change"></select>
+      <pre id="diff" class="diff"></pre>
+      <p id="truth" class="small"></p>
+      <svg id="graph" viewBox="0 0 640 300" role="img" aria-label="Function dependency graph"></svg>
+      <p class="small muted">Solid: direct call (LLVM IR). Dashed: function-pointer edge (address-taken + indirect call). Highlighted: changed function.</p>
+    </div>
+    <div class="card"><h3>Selection by technique</h3><div id="selections"></div>
+      <p class="small muted">✓ caught = selected and actually fails · ✗ missed = fails but not selected · extra = selected, passes.</p></div>
+  </div>
+</section>
+
+<section id="techniques">
+  <p class="eyebrow">02 / TECHNIQUE COMPARISON</p>
+  <h2>Safety first, then cost.</h2>
+  <div class="card"><div class="table-wrap"><table id="tech-table"></table></div>
+  <p class="small muted" id="seed-note"></p></div>
+</section>
+
+<section id="adequacy">
+  <p class="eyebrow">03 / BEYOND EXPECTED SCENARIOS</p>
+  <h2>Which extra inputs are worth running?</h2>
+  <p class="muted">Mutation score = share of non-equivalent changes to the pipeline that a strategy's inputs expose. Random strategies: mean ± sd over seeds.</p>
+  <div class="card"><div id="adequacy-bars" class="bars"></div><details><summary>Table view</summary><div class="table-wrap"><table id="adequacy-table"></table></div></details></div>
+  <div class="card"><h3>Changes the team's suite misses → concrete suggested tests</h3><div id="suggestions"></div></div>
+</section>
+
+<section id="assistant">
+  <p class="eyebrow">04 / AI ASSISTANT EVALUATION</p>
+  <h2>An evaluation is credible only if it fails on assistants known to be wrong.</h2>
+  <p class="muted" id="assistant-note"></p>
+  <div class="card"><div class="table-wrap"><table id="matrix" class="matrix"></table></div>
+  <p class="small muted">Cells: passed/total cases per category. ✗ marks a category that caught the variant. Click a row for failure reasons.</p>
+  <pre id="reasons" class="diff" hidden></pre></div>
+</section>
+
+<section id="limits"><p class="eyebrow">05 / BOUNDARIES</p><h2>What this does not show</h2><div class="card"><ul id="limit-list"></ul>
+<p class="small">Independent work by Drona Koppula Putta. Authored fixture code; no Rohde &amp; Schwarz (or other employer) code, data, assistant or architecture is used or represented.</p></div></section>
+<p id="error" role="alert" hidden></p>
+</main></body></html>

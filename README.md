@@ -1,10 +1,29 @@
 # PatchProof Lab
-Independent work sample for Bosch Rexroth internship REF297705V.
+Independent software-testing work sample by Drona Koppula Putta. Authored fixture code only; no employer code, data or architecture.
 
-Engineering question: Can a generated patch pass its own checks while violating a separately stated requirement, and which evidence needs to run again after a context change?
+Engineering questions:
+1. Can a patch pass its own checks while violating a separately stated requirement? (Part 1)
+2. When the expected tests pass, which other tests must rerun after a change, which extra inputs are worth running, and how do you evaluate an AI assistant credibly? (Part 2, `impact/`)
 
-Live: https://patchproof-lab.vercel.app/
-Role: https://jobs.smartrecruiters.com/BoschGroup/744000153500999
+Live: https://patchproof-lab.vercel.app/ (Part 2 page: `/impact.html` once deployed from this branch)
+
+## Part 2: change impact and assistant evaluation (`impact/`)
+Three measured experiments on a 6-file C++ system (shared helper header, config header, function-pointer dispatch):
+
+* **Which tests must rerun?** Dependencies are discovered from LLVM IR (call graph), the Clang AST (constant def-use) and one llvm-cov profile per test. On 70 generated changes with retest-all ground truth, a hand-declared manifest is unsafe on 25/59 faulty changes; the hybrid selector is safe on 59/59 while rerunning 35% of tests. A learned (logistic-regression) selector was not safe on any of 5 seeds.
+* **Which extra inputs are worth running?** Seven strategies at matched budgets: 4 nominal cases score 47%, 200 uniform random 49%, 53 boundary-value cases 100% (on this fixture). Every change the team's suite misses is turned into a concrete suggested test or marked equivalent.
+* **AI-assistant evaluation.** 39 structured cases in 9 categories (stale context, indirect prompt injection, abstention, citation integrity, metamorphic paraphrase, downstream impact, malformed input, ...). The harness is validated against 8 known-faulty assistants (8/8 caught). An LLM-backed adapter exists; no LLM result is claimed (no credentials).
+
+Reproduce (needs clang++ with libclang-rt profile runtime, llvm-cov, llvm-profdata, Python 3.11+):
+
+    python -m pip install hypothesis scikit-learn
+    python impact/run_all.py            # ~30 s; writes impact/results/*.json and impact.db
+    python -m unittest discover -s tests
+    sqlite3 impact/results/impact.db < impact/queries.sql
+
+Write-ups: `docs/impact/RESEARCH_DOSSIER.md`, `GAP_MATRIX.md`, `ARCHITECTURE_COMPARISON.md`.
+
+## Part 1: patch verification workspace
 
 ## What runs
 The public workspace loads hash-verified WebAssembly compiled from C++. Visitors select a candidate, change timeout and limits, supply bounded JSON traces, execute, inspect guard/output disagreements, play or scrub the recorded trace and export the exact run. A local command interface invokes these tools without inventing results.
@@ -45,7 +64,7 @@ The Python oracle is separately implemented but shares the requirements. Shared 
 Scoped validation uses an explicit dependency manifest and test-local configuration. It does not discover arbitrary code dependencies. An incorrect manifest can invalidate the conclusion; the negative control demonstrates this.
 
 ## Target and safety
-Execution is portable wasm32, not QNX or embedded Linux target validation. Inputs model integer sensor-command checks, not physical dynamics. No Bosch code, proprietary architecture, controller hardware, MISRA compliance or safety certification is claimed.
+Execution is portable wasm32, not QNX or embedded Linux target validation. Inputs model integer sensor-command checks, not physical dynamics. No employer code, proprietary architecture, controller hardware, MISRA compliance or safety certification is claimed.
 
 Selected clang-analyzer and bugprone checks do not establish full MISRA compliance.
 QNX access: https://www.qnx.com/developers/docs/qnxeverywhere/introduction.html
@@ -60,5 +79,5 @@ tools/workflow.py: actual tools and human-review handoff.
 site/: public workspace and compiled artifacts.
 results/: actual build and evaluation evidence.
 
-Mohamed Amin Hamdad is the exact vacancy contact. ORC2 remains an adjacent product-family hypothesis, not a confirmed internship assignment.
+History: Part 1 was first prepared as a work sample for a Bosch Rexroth internship application; its hash-pinned evidence files still contain that wording and are left unchanged so the published hashes stay valid.
 
